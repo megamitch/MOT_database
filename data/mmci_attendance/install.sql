@@ -18,7 +18,16 @@ CREATE TABLE IF NOT EXISTS `employee_work_schedule` (
     `ews_id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `employee_id` VARCHAR(100) NOT NULL DEFAULT "",
     `work_schedule_id` INT(10) UNSIGNED NOT NULL DEFAULT 1,
-) ENGINE=InnoDB CHARSET=utf8;
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `timeclock_schedule` (
+    `timeclock_schedule_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `clock_in` TIME NOT NULL DEFAULT "00:00:00",
+    `clock_out` TIME NOT NULL DEFAULT "00:00:00",
+    `total_hours` TINYINT(2) NOT NULL DEFAULT 0,
+    INDEX time_in_out (`clock_in`, `clock_out`),
+    UNIQUE timeclock (`clock_in`, `clock_out`)
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `break_schedule` () ENGINE=InnoDB CHARSET=utf8;
 
