@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `employee_work_schedule` (
     `ews_id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `employee_id` VARCHAR(100) NOT NULL DEFAULT "",
     `work_schedule_id` INT(10) UNSIGNED NOT NULL DEFAULT 1,
+    FOREIGN KEY (employee_id) REFERENCES `mmci_main`.`employee` (employee_id) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `timeclock_schedule` (

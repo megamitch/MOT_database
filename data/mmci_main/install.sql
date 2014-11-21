@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `job_position` (
 -- EMPLOYEES
 CREATE TABLE IF NOT EXISTS `employee` (
     `auto_id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `employee_id` VARCHAR(100) NOT NULL DEFAULT "",
+    `employee_id` VARCHAR(100) NOT NULL DEFAULT '',
     `first_name` VARCHAR(100) NOT NULL DEFAULT '',
     `middle_name` VARCHAR(50) NOT NULL DEFAULT '',
     `last_name` VARCHAR(50) NOT NULL DEFAULT '',
@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `date_hired` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `date_resigned` timestamp NOT NULL DEFAULT '00-00-0000 00:00:00',
     INDEX auto_employee_id (`auto_id`, `employee_id`),
+    INDEX emp_id (`employee_id`),
     UNIQUE identification_number (`employee_id`),
     UNIQUE employee_name (`first_name`, `middle_name`, `last_name`),
     UNIQUE employee_name_id (`employee_id`, `first_name`, `middle_name`, `last_name`)
