@@ -16,10 +16,16 @@ CREATE TABLE IF NOT EXISTS `work_schedule` (
 
 CREATE TABLE IF NOT EXISTS `employee_work_schedule` (
     `ews_id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `employee_id` VARCHAR(100) NOT NULL DEFAULT "",
+    `employee_id` VARCHAR(100) NOT NULL DEFAULT '',
     `work_schedule_id` INT(10) UNSIGNED NOT NULL DEFAULT 1,
-    FOREIGN KEY (employee_id) REFERENCES `mmci_main`.`employee` (employee_id) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB;
+    `timeclock_schedule_id` INT(10) UNSIGNED NOT NULL DEFAULT 1,
+    INDEX emp_work_sched (`employee_id`,`work_schedule_id`, `timeclock_schedule_id`),
+    INDEX emp_id (`employee_id`),
+    UNIQUE employee_id (`employee_id`),
+    UNIQUE work_schedule (`employee_id`, `work_schedule_id`),
+    FOREIGN KEY (`employee_id`) 
+        REFERENCES `mmci_main`.`employee` (`employee_id`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `timeclock_schedule` (
     `timeclock_schedule_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,

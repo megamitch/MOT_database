@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `date_resigned` timestamp NOT NULL DEFAULT '00-00-0000 00:00:00',
     INDEX auto_employee_id (`auto_id`, `employee_id`),
     INDEX emp_id (`employee_id`),
-    UNIQUE identification_number (`employee_id`),
+    UNIQUE employee_id (`employee_id`),
     UNIQUE employee_name (`first_name`, `middle_name`, `last_name`),
     UNIQUE employee_name_id (`employee_id`, `first_name`, `middle_name`, `last_name`)
 ) ENGINE=InnoDB CHARSET=utf8;
