@@ -6,8 +6,8 @@ USE `mmci_main`;
 -- REQUIRED TABLES 
 CREATE TABLE IF NOT EXISTS `branch` (
     `branch_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `branch_code` VARCHAR(30) NOT NULL DEFAULT "",
-    `branch_name` VARCHAR(150) NOT NULL DEFAULT "",
+    `branch_code` VARCHAR(30) NOT NULL DEFAULT '',
+    `branch_name` VARCHAR(150) NOT NULL DEFAULT '',
     INDEX branch_code (`branch_code`, `branch_name`),
     UNIQUE codename (`branch_code`, `branch_name`)
 ) ENGINE=InnoDB CHARSET=utf8;
@@ -56,4 +56,54 @@ CREATE TABLE IF NOT EXISTS `employee` (
     UNIQUE employee_id (`employee_id`),
     UNIQUE employee_name (`first_name`, `middle_name`, `last_name`),
     UNIQUE employee_name_id (`employee_id`, `first_name`, `middle_name`, `last_name`)
+) ENGINE=InnoDB CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `employee_leave_credits` (
+    `elc_id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `employee_id` VARCHAR(100) NOT NULL DEFAULT '',
+    `current_year`  YEAR NOT NULL DEFAULT "0000",
+    `credits` TINYINT(2) NOT NULL DEFAULT 10,
+    INDEX year_id (`employee_id`, `current_year`),
+    INDEX years (`current_year`),
+    UNIQUE employee_credits (`employee_id`,`current_year`),
+    FOREIGN KEY (`employee_id`) 
+        REFERENCES `employee` (`employee_id`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `user_biometric` (
+    `biometric_id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `employee_id` VARCHAR(100) NOT NULL DEFAULT '',
+    `biometric_code` VARBINARY(1000) NOT NULL DEFAULT '',
+    INDEX employee (`employee_id`),
+    UNIQUE employee_code (`employee_id`),
+    FOREIGN KEY (`employee_id`) 
+        REFERENCES `employee` (`employee_id`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `user` (
+    `user_id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `username` VARCHAR(50) NOT NULL DEFAULT '',
+    `password` VARCHAR(50) NOT NULL DEFAULT '',
+    `employee_id` VARCHAR(100) NOT NULL DEFAULT '',
+    INDEX username (`username`),
+    INDEX employee (`employee_id`),
+    INDEX employee_user_id (`username`, `employee_id`),
+    UNIQUE emp_user (`username`, `employee_id`),
+    FOREIGN KEY (`employee_id`)
+        REFERENCES `employee` (`employee_id`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `attendance` (
+    `attendance_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `employee_id`  VARCHAR(100) NOT NULL DEFAULT '',
+    `log_type` ENUM ('timeclock', 'break', 'ob') NOT NULL,
+    `log_date` DATE NOT NULL DEFAULT "0000-00-00",
+    `time_start` TIME NOT NULL DEFAULT "00:00:00",
+    `time_end` TIME NOT NULL DEFAULT "00:00:00",
+    INDEX employee_attendance (`employee_id`, `log_type`),
+    FOREIGN KEY (`employee_id`)
+        REFERENCES `employee` (`employee_id`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8;
