@@ -1,0 +1,8 @@
+[mysqld]
+server-id=10
+
+master-host=db-master.mycompany.com
+master-port=3306
+master-user=pertinax
+master-password=freitag
+master-connect-retry=60
