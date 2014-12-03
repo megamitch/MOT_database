@@ -30,7 +30,6 @@ innodb_lock_wait_timeout = 50
 # Ignored databases
 replicate_ignore_db=mmci_attendance
 
-
 [mysqlhotcopy]
 interactive_timeout
 wait_timeout
