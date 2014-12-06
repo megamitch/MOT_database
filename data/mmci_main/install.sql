@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `user_biometric` (
 CREATE TABLE IF NOT EXISTS `user` (
     `user_id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `username` VARCHAR(50) NOT NULL DEFAULT '',
-    `password` VARCHAR(50) NOT NULL DEFAULT '',
+    `password` VARCHAR(100) NOT NULL DEFAULT 'p@$$w0Rd',
     `employee_id` VARCHAR(100) NOT NULL DEFAULT '',
     INDEX username (`username`),
     INDEX employee (`employee_id`),
