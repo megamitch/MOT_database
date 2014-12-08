@@ -131,15 +131,6 @@ CREATE TABLE IF NOT EXISTS `user` (
         REFERENCES `employee` (`employee_id`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8;
 
+-- CREATE TABLE IF NOT EXISTS `break_schedule` () ENGINE=InnoDB CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `attendance` (
-    `attendance_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `employee_id`  VARCHAR(100) NOT NULL DEFAULT '',
-    `log_type` ENUM ('timeclock', 'break', 'ob') NOT NULL,
-    `log_date` DATE NOT NULL DEFAULT "0000-00-00",
-    `time_start` TIME NOT NULL DEFAULT "00:00:00",
-    `time_end` TIME NOT NULL DEFAULT "00:00:00",
-    INDEX employee_attendance (`employee_id`, `log_type`),
-    FOREIGN KEY (`employee_id`)
-        REFERENCES `employee` (`employee_id`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB CHARSET=utf8;
+-- CREATE TABLE IF NOT EXISTS `employee_break_schedule` () ENGINE=InnoDB CHARSET=utf8;
