@@ -41,6 +41,12 @@ INSERT INTO timeclock (keylog, log_type, clockin)
 
 UPDATE timeclock 
     SET clockout = curtime() 
+    WHERE log_type = 'timeclock' AND update_date = '0000-00-00 00:00:00' 
+        AND keylog = ((SELECT keylog from employee_time_log WHERE employee_id = '01-0012' and log_date = curdate())) 
+    LIMIT 1;
+
+UPDATE timeclock 
+    SET clockout = curtime() 
     WHERE log_type = 'break' AND update_date = '0000-00-00 00:00:00' 
         AND keylog = ((SELECT keylog from employee_time_log WHERE employee_id = '01-0012' and log_date = curdate())) 
     LIMIT 1;
